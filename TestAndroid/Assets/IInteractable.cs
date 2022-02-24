@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITouchController
+public interface IInteractable
 {
-    void tap(Vector2 position);
+    void select_toggle();
 
-    void drag(Vector2 current_poisition);
+    void get_dragged(Ray ray);
+    void drag_start();
     void drag_end();
 
+    void pinch_start();
     void pinch(float ratio);
-    void pinch_end();
 
+    void rotate_start();
     void rotate(float angle);
-    void rotate_end();
 }
