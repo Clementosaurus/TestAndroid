@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeControl : MonoBehaviour, IInteractable
+public class SphereControl : MonoBehaviour, IInteractable
 {
-    float distance = 0;
     Renderer my_renderer;
     bool is_selected = false;
     Vector3 init_scale;
@@ -22,17 +21,21 @@ public class CubeControl : MonoBehaviour, IInteractable
 
     }
 
+
+
     public void select_toggle()
     {
         is_selected = !is_selected;
 
         if (is_selected)
         {
-            my_renderer.material.color = Color.red;
+            my_renderer.material.color = Color.yellow;
+            gameObject.layer = 2;
         }
         else
         {
             my_renderer.material.color = Color.white;
+            gameObject.layer = 0;
         }
     }
 
@@ -40,19 +43,25 @@ public class CubeControl : MonoBehaviour, IInteractable
 
     public void get_dragged(Ray ray)
     {
-        transform.position = ray.GetPoint(distance);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Floor"))
+            {
+                transform.position = hit.point + hit.normal * (my_renderer.bounds.extents.magnitude/2);
+            }
+        }
     }
 
     public void drag_start()
     {
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+
     }
 
     public void drag_end()
     {
 
     }
-
 
 
     public void pinch_start()
