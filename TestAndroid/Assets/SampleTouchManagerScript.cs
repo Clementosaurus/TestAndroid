@@ -10,6 +10,7 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     bool pinch_started = false;
     bool rotate_started = false;
     CameraControl my_camera;
+    private Vector2 starting_drag_position;
 
     public void drag(Vector2 current_position)
     {
@@ -25,11 +26,16 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
             }
             selected_object.get_dragged(our_ray);
         }
-        //else
-        //{
-        //    my_camera.get_dragged(our_ray);
-        //}
-
+        else
+        {
+            if (!drag_started)
+            {
+                starting_drag_position = current_position;
+                drag_started = true;
+            }
+            my_camera.get_dragged(current_position-starting_drag_position);
+            starting_drag_position = current_position;
+        }
     }
 
     public void drag_end()
