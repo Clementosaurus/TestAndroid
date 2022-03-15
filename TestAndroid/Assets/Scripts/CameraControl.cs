@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour, IInteractable
+public class CameraControl : MonoBehaviour
 {
 
     Renderer my_renderer;
@@ -21,41 +21,10 @@ public class CameraControl : MonoBehaviour, IInteractable
         
     }
 
-
-
-    public void drag_start()
+    public void get_dragged(Vector2 v)
     {
-
-    }
-
-    public void get_dragged(Ray ray)
-    {
-        Vector2 positionon_screen = convert(Camera.main.transform.InverseTransformPoint(ray.GetPoint(1)));
-        print(positionon_screen);
-
-        Vector3 position = perpendicular_component(Camera.main.transform.InverseTransformPoint(ray.GetPoint(1)), transform.forward);
-
-        transform.position += position;
-    }
-
-    public Vector3 parrallel_component(Vector3 v, Vector3 n)
-    {
-        return Vector3.Dot(v, n) * n;
-    }
-
-    public Vector3 perpendicular_component(Vector3 v, Vector3 n)
-    {
-        return v - parrallel_component(v, n);
-    }
-
-    public Vector2 convert(Vector3 position)
-    {
-        return new Vector2((Screen.width - 1) * (position.x + 1) / 2, (Screen.height-1)*(position.y + 0.5f));
-    }
-
-    public void drag_end()
-    {
-
+        transform.position -= 0.01f * v.x * transform.right;
+        transform.position -= 0.01f * v.y * transform.up;
     }
 
 
@@ -81,6 +50,4 @@ public class CameraControl : MonoBehaviour, IInteractable
     {
         transform.rotation = init_angle * Quaternion.AngleAxis((-angle), Camera.main.transform.forward);
     }
-
-    public void select_toggle() { }
 }
