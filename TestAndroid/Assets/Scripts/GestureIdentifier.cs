@@ -8,12 +8,12 @@ public class GestureIdentifier : MonoBehaviour
 
     private float tap_timer;
 
-    private float starting_distance = 0;
-    private float new_relative_distance = 0;
-    private float ratio = 0;
+    private float starting_distance = 0f;
+    private float new_relative_distance = 0f;
+    private float ratio = 0f;
 
-    private float starting_angle = 0;
-    private float new_angle = 0;
+    private float starting_angle = 0f;
+    private float new_angle = 0f;
 
     private bool has_moved;
     private float MAX_ALLOWED_TAP_TIME = 0.2f;
@@ -44,11 +44,11 @@ public class GestureIdentifier : MonoBehaviour
                 {
                     starting_distance = Vector2.Distance(first_touch.position, second_touch.position);
                     starting_angle = Mathf.Atan2((second_touch.position.y - first_touch.position.y), (second_touch.position.x - first_touch.position.x));
+                    starting_angle *= Mathf.Rad2Deg;
                 }
 
                 if (first_touch.phase == TouchPhase.Moved || second_touch.phase == TouchPhase.Moved)
                 {
-                    // new/current relative distance and ratio
                     new_relative_distance = Vector2.Distance(first_touch.position, second_touch.position);
                     new_angle = Mathf.Atan2((second_touch.position.y - first_touch.position.y), (second_touch.position.x - first_touch.position.x));
 
@@ -59,7 +59,7 @@ public class GestureIdentifier : MonoBehaviour
                     foreach (ITouchController manager in managers)
                     {
                         (manager as ITouchController).pinch(ratio);
-                        (manager as ITouchController).rotate(new_angle);
+                        (manager as ITouchController).rotate(new_angle-starting_angle);
                     }
                 }
 

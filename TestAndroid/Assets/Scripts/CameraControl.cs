@@ -36,7 +36,10 @@ public class CameraControl : MonoBehaviour
 
     public void pinch(float ratio)
     {
-        transform.position = init_pos / ratio;
+        //transform.position = init_pos + ratio*transform.forward;
+
+        int cons = 5;
+        transform.position = init_pos + cons * Mathf.Log(ratio) * transform.forward;
     }
 
 
@@ -48,6 +51,6 @@ public class CameraControl : MonoBehaviour
 
     public void rotate(float angle)
     {
-        transform.rotation = init_angle * Quaternion.AngleAxis((-angle), Camera.main.transform.forward);
+        transform.rotation = init_angle * Quaternion.AngleAxis(-angle, transform.forward);
     }
 }

@@ -73,6 +73,6 @@ public class CubeControl : MonoBehaviour, IInteractable
 
     public void rotate(float angle)
     {
-        transform.rotation = init_angle * Quaternion.AngleAxis(angle, Camera.main.transform.forward);
+        transform.rotation = Quaternion.AngleAxis(angle, Camera.main.transform.forward) * init_angle;
     }
 }
