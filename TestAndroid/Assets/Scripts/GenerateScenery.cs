@@ -31,13 +31,6 @@ public class GenerateScenery : MonoBehaviour
         floor.tag = "Floor";
         Renderer floor_renderer = floor.GetComponent<Renderer>();
         floor_renderer.material.color = new Color(0f, 1f, 0.25f);
-
-        //my_renderer.material.color = Color.red;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update(){}
 }
