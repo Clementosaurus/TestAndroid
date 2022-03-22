@@ -12,6 +12,7 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     CameraControl my_camera;
     private Vector2 starting_drag_position;
 
+
     public void drag(Vector2 current_position)
     {
         Ray our_ray = Camera.main.ScreenPointToRay(current_position);
@@ -47,6 +48,22 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
         }
     }
 
+
+
+    public void double_drag(Vector2 current_position)
+    {
+        Ray our_ray = Camera.main.ScreenPointToRay(current_position);
+        Debug.DrawRay(our_ray.origin, our_ray.direction * 100, Color.red, 4f);
+
+        if (!drag_started)
+        {
+            starting_drag_position = current_position;
+            drag_started = true;
+        }
+
+        my_camera.get_dragged(current_position - starting_drag_position);
+        starting_drag_position = current_position;
+    }
 
 
 

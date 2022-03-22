@@ -63,12 +63,19 @@ public class GestureIdentifier : MonoBehaviour
                     }
                 }
 
+                if(first_touch.phase == TouchPhase.Moved && second_touch.phase == TouchPhase.Moved)
+                {
+                    foreach (ITouchController manager in managers)
+                        (manager as ITouchController).double_drag(first_touch.position);
+                }
+
                 if(second_touch.phase == TouchPhase.Ended)
                 {
                     foreach (ITouchController manager in managers)
                     {
                         (manager as ITouchController).pinch_end();
                         (manager as ITouchController).rotate_end();
+                        (manager as ITouchController).drag_end();
                     }
                 }
             }
