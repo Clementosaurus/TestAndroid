@@ -15,6 +15,9 @@ public class GestureIdentifier : MonoBehaviour
     private float starting_angle = 0f;
     private float new_angle = 0f;
 
+    private float phi = 0f;
+    private float theta = 0f;
+
     private bool has_moved;
     private float MAX_ALLOWED_TAP_TIME = 0.2f;
 
@@ -60,17 +63,11 @@ public class GestureIdentifier : MonoBehaviour
                     {
                         (manager as ITouchController).pinch(ratio);
                         (manager as ITouchController).rotate(new_angle-starting_angle);
+                        //(manager as ITouchController).double_drag();
                     }
                 }
 
-                //Not working
-                //if(first_touch.phase == TouchPhase.Moved && second_touch.phase == TouchPhase.Moved)
-                //{
-                //    foreach (ITouchController manager in managers)
-                //        (manager as ITouchController).double_drag(first_touch.position);
-                //}
-
-                if(second_touch.phase == TouchPhase.Ended)
+                if (second_touch.phase == TouchPhase.Ended)
                 {
                     foreach (ITouchController manager in managers)
                     {

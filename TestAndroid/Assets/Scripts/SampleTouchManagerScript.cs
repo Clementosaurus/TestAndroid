@@ -42,27 +42,10 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     public void drag_end()
     {
         drag_started = false;
-        if(selected_object != null)
+        if (selected_object != null)
         {
             selected_object.drag_end();
         }
-    }
-
-
-
-    public void double_drag(Vector2 current_position)
-    {
-        Ray our_ray = Camera.main.ScreenPointToRay(current_position);
-        Debug.DrawRay(our_ray.origin, our_ray.direction * 100, Color.red, 4f);
-
-        if (!drag_started)
-        {
-            starting_drag_position = current_position;
-            drag_started = true;
-        }
-
-        my_camera.get_dragged(current_position - starting_drag_position);
-        starting_drag_position = current_position;
     }
 
 
@@ -120,6 +103,7 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
             my_camera.rotate(angle);
         }
     }
+
     public void rotate_end()
     {
         rotate_started = false;

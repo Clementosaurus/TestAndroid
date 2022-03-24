@@ -8,7 +8,6 @@ public interface ITouchController
 
     void drag(Vector2 current_poisition);
     void drag_end();
-    void double_drag(Vector2 current_position);
 
     void pinch(float ratio);
     void pinch_end();

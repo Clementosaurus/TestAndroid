@@ -36,8 +36,6 @@ public class CameraControl : MonoBehaviour
 
     public void pinch(float ratio)
     {
-        //transform.position = init_pos + ratio*transform.forward;
-
         int cons = 5;
         transform.position = init_pos + cons * Mathf.Log(ratio) * transform.forward;
     }
@@ -52,5 +50,22 @@ public class CameraControl : MonoBehaviour
     public void rotate(float angle)
     {
         transform.rotation = init_angle * Quaternion.AngleAxis(-angle, transform.forward);
+    }
+
+
+    public void double_drag_start()
+    {
+
+    }
+
+    public void double_drag(Vector2 mve)
+    {
+        float phi = 90 - 180 * mve.y / Screen.height;
+        phi *= Mathf.Deg2Rad;
+        float theta = 90 - 180 * mve.y / Screen.width;
+        theta *= Mathf.Deg2Rad;
+        Vector3 dir = new Vector3(Mathf.Cos(theta) * Mathf.Sin(phi), Mathf.Cos(phi), Mathf.Sin(theta) * Mathf.Sin(phi));
+        dir = transform.InverseTransformPoint(dir);
+        transform.LookAt(transform.position + dir);
     }
 }
