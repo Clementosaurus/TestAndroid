@@ -29,11 +29,8 @@ public class GenerateScenery : MonoBehaviour
         floor.transform.position = new Vector3(-0.9f, -2f, -15.5f);
         floor.transform.localScale = new Vector3(6f, 1f, 5f);
         floor.tag = "Floor";
+        Renderer floor_renderer = floor.GetComponent<Renderer>();
+        floor_renderer.material.color = new Color(0f, 1f, 0.25f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update(){}
 }

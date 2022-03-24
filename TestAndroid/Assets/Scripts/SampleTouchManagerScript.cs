@@ -12,6 +12,7 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     CameraControl my_camera;
     private Vector2 starting_drag_position;
 
+
     public void drag(Vector2 current_position)
     {
         Ray our_ray = Camera.main.ScreenPointToRay(current_position);
@@ -41,12 +42,11 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     public void drag_end()
     {
         drag_started = false;
-        if(selected_object != null)
+        if (selected_object != null)
         {
             selected_object.drag_end();
         }
     }
-
 
 
 
@@ -103,6 +103,7 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
             my_camera.rotate(angle);
         }
     }
+
     public void rotate_end()
     {
         rotate_started = false;

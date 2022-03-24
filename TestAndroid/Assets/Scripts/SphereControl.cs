@@ -75,6 +75,9 @@ public class SphereControl : MonoBehaviour, IInteractable
     }
 
 
+
+    //Quick question
+    //Why would anyone rotate a ball ?
     public void rotate_start()
     {
         init_angle = transform.rotation;
@@ -82,6 +85,6 @@ public class SphereControl : MonoBehaviour, IInteractable
 
     public void rotate(float angle)
     {
-        transform.rotation = init_angle * Quaternion.AngleAxis(angle, Camera.main.transform.forward);
+        transform.rotation = init_angle * Quaternion.AngleAxis(angle, transform.forward);
     }
 }
