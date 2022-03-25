@@ -5,19 +5,19 @@ using System.Linq;
 
 public class GestureIdentifier : MonoBehaviour
 {
-
+    //duration of the tap
     private float tap_timer;
 
+    // pinch
     private float starting_distance = 0f;
     private float new_relative_distance = 0f;
     private float ratio = 0f;
 
+    // rotation
     private float starting_angle = 0f;
     private float new_angle = 0f;
 
-    private float phi = 0f;
-    private float theta = 0f;
-
+    // tap
     private bool has_moved;
     private float MAX_ALLOWED_TAP_TIME = 0.2f;
 
@@ -37,14 +37,15 @@ public class GestureIdentifier : MonoBehaviour
             tap_timer += Time.deltaTime;
             Touch[] all_touches = Input.touches;
             Touch first_touch = all_touches[0];
-            //print(first_touch.phase);
 
+            // All the double touch things
             if(Input.touchCount == 2)
             {
                 Touch second_touch = all_touches[1];
 
                 if (second_touch.phase == TouchPhase.Began)
                 {
+                    // starting distance between the two touches, as well as the angle
                     starting_distance = Vector2.Distance(first_touch.position, second_touch.position);
                     starting_angle = Mathf.Atan2((second_touch.position.y - first_touch.position.y), (second_touch.position.x - first_touch.position.x));
                     starting_angle *= Mathf.Rad2Deg;
@@ -52,6 +53,7 @@ public class GestureIdentifier : MonoBehaviour
 
                 if (first_touch.phase == TouchPhase.Moved || second_touch.phase == TouchPhase.Moved)
                 {
+                    // update every time a touch moves, to find the new relative distance and the angle
                     new_relative_distance = Vector2.Distance(first_touch.position, second_touch.position);
                     new_angle = Mathf.Atan2((second_touch.position.y - first_touch.position.y), (second_touch.position.x - first_touch.position.x));
 
@@ -63,7 +65,7 @@ public class GestureIdentifier : MonoBehaviour
                     {
                         (manager as ITouchController).pinch(ratio);
                         (manager as ITouchController).rotate(new_angle-starting_angle);
-                        //(manager as ITouchController).double_drag();
+                        (manager as ITouchController).double_drag(first_touch.position);
                     }
                 }
 
@@ -78,6 +80,7 @@ public class GestureIdentifier : MonoBehaviour
                 }
             }
 
+            //Single touch things
             if(Input.touchCount == 1)
             {
                 switch (first_touch.phase)

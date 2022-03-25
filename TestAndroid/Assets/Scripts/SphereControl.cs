@@ -43,6 +43,8 @@ public class SphereControl : MonoBehaviour, IInteractable
 
     public void get_dragged(Ray ray)
     {
+        // Drag the sphere across the ground
+        // Check every raycast hit but will only work for the ground
         RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
         foreach (RaycastHit hit in hits)
         {

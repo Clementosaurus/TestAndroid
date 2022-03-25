@@ -18,6 +18,8 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
         Ray our_ray = Camera.main.ScreenPointToRay(current_position);
         Debug.DrawRay(our_ray.origin, our_ray.direction * 100, Color.red, 4f);
 
+        // drag the selected object
+        // if nothing is selected, will drag the camera
         if (selected_object != null)
         {
             if (!drag_started)
@@ -49,7 +51,21 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
     }
 
 
+    // will pan the camera around
+    public void double_drag(Vector2 position)
+    {
+        if (!drag_started)
+        {
+            starting_drag_position = position;
+            drag_started = true;
+        }
+        my_camera.double_drag(position - starting_drag_position);
+        starting_drag_position = position;
+    }
 
+
+    // will pinch the selected object, making it bigger/smaller
+    // if nothing is selected, will pinch the camera, making a zoom
     public void pinch(float ratio)
     {
         if (selected_object != null)
@@ -80,7 +96,8 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
 
 
 
-
+    // will rotate the selected object around their forward axis (might be useless, it just looks a bit better)
+    // if nothing is selected, will rotate the camera around its forward axis
     public void rotate(float angle)
     {
         if (selected_object != null)
@@ -111,7 +128,10 @@ public class SampleTouchManagerScript : MonoBehaviour, ITouchController
 
 
 
-
+    // this mess will change an object to its "selected" state if nothing is selected
+    // if an other object is tapped, will select it and unselect the previous object
+    // if the sky or the ground is tapped, will unselect everything
+    // There is an error in this code, because the ground is not IIteractable, the console will send an error that will do nothing, just a red warning
     public void tap(Vector2 position)
     {
         Ray our_ray = Camera.main.ScreenPointToRay(position);
