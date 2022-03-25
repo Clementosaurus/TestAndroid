@@ -14,4 +14,6 @@ public interface ITouchController
 
     void rotate(float angle);
     void rotate_end();
+
+    void double_drag(Vector2 position);
 }

@@ -45,6 +45,8 @@ public class CapsulControl : MonoBehaviour, IInteractable
 
     public void drag_start()
     {
+        // Drag along a plane parrallel to the camera
+
         our_plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         our_plane.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, transform.position.z);
         our_plane.transform.localScale = new Vector3(10, 10, 10);
@@ -55,6 +57,7 @@ public class CapsulControl : MonoBehaviour, IInteractable
 
     public void get_dragged(Ray ray)
     {
+        // Will check every raycast hit, but will only do stuff for the correct plane (to avoid the floor)
         RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
         foreach(RaycastHit hit in hits)
         {

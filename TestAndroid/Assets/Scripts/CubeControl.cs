@@ -40,6 +40,7 @@ public class CubeControl : MonoBehaviour, IInteractable
 
     public void get_dragged(Ray ray)
     {
+        // Drag at the same distance of the camera
         transform.position = ray.GetPoint(distance);
     }
 
